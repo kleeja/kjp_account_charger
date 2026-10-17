@@ -1,0 +1,59 @@
+<IF NAME="is_style_supported">
+
+<div class="row justify-content-center">
+    <div class="col-md-9 col-lg-7 col-xl-6">
+        <div class="d-flex align-items-center gap-3 mb-4">
+            <span class="icon-box rounded-3 bg-primary-subtle text-primary-emphasis"><i class="fa-solid fa-circle-plus"></i></span>
+            <div>
+                <h1 class="h3 fw-bold mb-0">{olang.KJP_CHRG_ACNT}</h1>
+                <p class="text-body-secondary mb-0">{olang.KJP_CHRG_INTRO}</p>
+            </div>
+        </div>
+
+        <IF NAME="payMethods">
+
+        <form method="post" action="{formAction}" class="card shadow-sm">
+            <div class="card-body p-4">
+                <div class="mb-3">
+                    <label for="kjp-charge-amount" class="form-label">{olang.KJP_CHRG_AMNT}</label>
+                    <div class="input-group">
+                        <input type="number" name="charge_amount" class="form-control" id="kjp-charge-amount" dir="ltr" min="{minAmount}" step="1" inputmode="numeric" placeholder="{minAmount}" aria-describedby="kjp-charge-min" required>
+                        <span class="input-group-text">{currency}</span>
+                    </div>
+                    <div id="kjp-charge-min" class="form-text">{minAmountText}</div>
+                </div>
+
+                <div class="mb-0">
+                    <label for="kjp-charge-method" class="form-label">{olang.KJP_CHRG_MTHD}</label>
+                    <select name="charge_method" class="form-select" id="kjp-charge-method">
+                        <LOOP NAME="payMethods">
+                        <option value="{{value}}">{{name}}</option>
+                        </LOOP>
+                    </select>
+                </div>
+            </div>
+
+            <div class="card-footer bg-body-tertiary py-3 px-4 d-flex justify-content-end">
+                {kjFormKeyPost}
+                <button type="submit" name="start_charge" value="1" class="btn btn-primary px-4">
+                    <i class="fa-solid fa-lock me-2" aria-hidden="true"></i>{olang.KJP_CHRG}
+                </button>
+            </div>
+        </form>
+
+        <ELSE>
+
+        <div class="card shadow-sm text-center">
+            <div class="card-body p-5">
+                <span class="icon-box icon-box-lg rounded-circle bg-body-tertiary text-body-secondary mb-3"><i class="fa-solid fa-credit-card"></i></span>
+                <p class="lead text-body-secondary mb-0">{olang.KJP_CHRG_NO_METHOD}</p>
+            </div>
+        </div>
+
+        </IF>
+    </div>
+</div>
+
+<ELSE>
+<p>{olang.KJP_STYLE_NOT_SUPPORTED}</p>
+</IF>

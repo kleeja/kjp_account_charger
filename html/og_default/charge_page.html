@@ -1,0 +1,57 @@
+<IF NAME="is_style_supported">
+<link rel="stylesheet" href="{config.siteurl}plugins/kleeja_payment/html/og_default/kj_payment.css">
+
+<!-- Top up the balance template -->
+<div id="content">
+
+    <!-- title -->
+    <h1 class="title">{olang.KJP_CHRG_ACNT}</h1>
+    <p class="title-note">{olang.KJP_CHRG_INTRO}</p>
+    <!-- @end-title -->
+
+    <IF NAME="payMethods">
+
+    <!-- the amount and the payment method -->
+    <form class="box kjp-form" action="{formAction}" method="post">
+        <h2 class="box-title box-title-sky">{olang.KJP_CHRG_ACNT}</h2>
+        <div class="box-body">
+            <div class="field">
+                <label for="kjp-charge-amount">{olang.KJP_CHRG_AMNT}</label>
+                <div class="input-group">
+                    <input type="number" name="charge_amount" id="kjp-charge-amount" dir="ltr" min="{minAmount}" step="1" inputmode="numeric" placeholder="{minAmount}" aria-describedby="kjp-charge-min" required>
+                    <span class="kjp-addon">{currency}</span>
+                </div>
+                <p class="explain" id="kjp-charge-min">{minAmountText}</p>
+            </div>
+
+            <div class="field">
+                <label for="kjp-charge-method">{olang.KJP_CHRG_MTHD}</label>
+                <select name="charge_method" id="kjp-charge-method">
+                    <LOOP NAME="payMethods">
+                    <option value="{{value}}">{{name}}</option>
+                    </LOOP>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            {kjFormKeyPost}
+            <button type="submit" name="start_charge" value="1" class="btn btn-primary">{olang.KJP_CHRG}</button>
+        </div>
+    </form>
+    <!-- @end-the-amount -->
+
+    <ELSE>
+
+    <!-- no payment method -->
+    <p class="notice"><img src="{STYLE_PATH}images/info.png" width="29" height="29" alt=""><span class="notice-body">{olang.KJP_CHRG_NO_METHOD}</span></p>
+    <!-- @end-no-payment-method -->
+
+    </IF>
+
+</div>
+<!-- @end-Top-up -->
+
+<ELSE>
+<p>{olang.KJP_STYLE_NOT_SUPPORTED}</p>
+</IF>
